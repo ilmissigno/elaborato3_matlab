@@ -47,7 +47,7 @@ switch nargin
         TOL = controllo_Tolleranza(TOL);
         controllo_MaxIter(MAXITER);
     otherwise
-        error('Err:NARGIN_MAGG_4','Specificare il numero corretto di parametri in ingresso');
+        error('Err:NESSUN_PARAM','Specificare il numero corretto di parametri in ingresso');
 end
 
 %% Inizializzazione Variabili
