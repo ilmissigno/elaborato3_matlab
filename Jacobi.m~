@@ -186,11 +186,11 @@ end
 % non contenga valori non ammessi e non reali e che abbia numero di colonne unitario.
 function controllo_VectorB(b,dim)
 if ((size(b,1) ~= dim) || (size(b,2))~=1)
-    error('Err:B_NON_VETTORE','Dimensione del vettore errata.');
+    error('Err:B_NOT_','Dimensione del vettore errata.');
 end
 
 if ((~isnumeric(b)) || (any(find(isinf(b)))) || (any(find(isnan(b)))) || (~isreal(b)) || (isempty(b)))
-    error('Err:B_NON_VALIDO','Uno o più valori inseriti nel vettore non sono validi');
+    error('Uno o più valori inseriti nel vettore non sono validi');
 end
 end
 
@@ -200,17 +200,17 @@ end
 function TOL = controllo_Tolleranza(TOL)
 % TOL è un intero positivo
 if ((~isscalar(TOL)) || (~isnumeric(TOL)) || (isinf(TOL)) || (isnan(TOL)) || (TOL <= 0))
-    error('Err:TOL_NON_VALIDO','TOL deve essere un numero positivo');
+    error('TOL deve essere un numero positivo');
 end
 
 % Segnalo (eventualmente) che il TOL specificato è troppo piccolo
 if (TOL < eps)
-    warning('Warn:TOL_PICCOLO','Il valore di TOL specificato è troppo piccolo. Verrà usato il valore di default TOL = 10^-6');
+    warning('Il valore di TOL specificato è troppo piccolo. Verrà usato il valore di default TOL = 10^-6');
     TOL = 10^-6;
 end
 
 if (TOL >= 1)
-    warning('Warn:TOL_GRANDE','Il valore di TOL specificato è troppo grande. Il risultato fornito potrebbe essere molto inaccurato. Si guardi la documentazione.');
+    warning('Il valore di TOL specificato è troppo grande. Il risultato fornito potrebbe essere molto inaccurato. Si guardi la documentazione.');
 end
 end
 
@@ -225,16 +225,16 @@ function controllo_MaxIter(MAXITER)
 % dire che MAXITER e' molto piccolo. Viceversa indica che MAXITER e' un
 % valore grande.
 if ((~isscalar(MAXITER)) || (~isnumeric(MAXITER)) || (isinf(MAXITER)) || (isnan(MAXITER)) || (MAXITER <= 0) || (mod(MAXITER,1) > eps))
-    error('Err:MAXITER_NON_VALIDO','MAXITER deve essere un intero positivo');
+    error('MAXITER deve essere un intero positivo');
 end
 
 % Segnalo se NMAX è piccolo
 if (MAXITER < 10)
-    warning('Warn:MAXITER_PICCOLO','Il numero di iterazioni specificato è molto piccolo, l''errore di calcolo potrebbe essere elevato');
+    warning('Il numero di iterazioni specificato è molto piccolo, l''errore di calcolo potrebbe essere elevato');
 end
 
 % Segnalo se NMAX è abbastanza grande.
 if (MAXITER > 10000)
-    warning('Warn:MAXITER_GRANDE','Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta');
+    warning('Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta');
 end
 end
