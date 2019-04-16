@@ -17,7 +17,7 @@ function [x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
 % resrel = facoltativo, residuo relativo pari a norm(b-A*x)/norm(b)
 %%
 %%
-%% Sintassi
+%% Sintassi e Descrizione
 % x = Jacobi(A,b)
 % x = Jacobi(A,b,TOL)
 % x = Jacobi(A,b,TOL,MAXITER)
@@ -28,18 +28,10 @@ function [x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
 % [x,niter,resrel] = Jacobi(A,b,TOL)
 % [x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
 %%
-%% Descrizione
 % x = Jacobi(A,b) risolve il sistema di equazioni lineari A*x = b. 
 % A deve essere una matrice quadrata sparsa, b deve essere un vettore colonna 
 % avente lo stesso numero di righe di A. La soluzione è corretta 
 % a meno di un errore dovuto al malcondizionamento della matrice A.
-% x = Jacobi(A,b,TOL) usa TOL per determinare l'accuratezza della
-% soluzione. Se non specificato TOL = 10^-6
-% x = Jacobi(A,b,TOL,MAXITER) usa TOL per determinare l'accuratezza
-% della soluzione e MAXITER per individuare il numero massimo di iterazioni
-% che l'algoritmo puo' compiere. Se non specificati, TOL = 10^-6
-% e MAXITER=500.
-%%
 %% Avvertenze
 % Se la function non converge stampa un messaggio di warning con il numero
 % di iterazioni raggiunto ed il residuo relativo. Si testi il software su
