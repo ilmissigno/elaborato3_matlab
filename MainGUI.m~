@@ -180,11 +180,11 @@ if(isempty(nummax))
     uiwait(gcf);
     nummax = 500;
 else
-    nummax = str2double(nummax);
+    nummax = st
 if ((~isscalar(nummax)) || (~isnumeric(nummax)) || (isinf(nummax)) || (isnan(nummax)) || (nummax <= 0) || (mod(nummax,1) > eps))
     errordlg('MAXITER deve essere un intero positivo','Errore');
     error('Err:MAXITER_NON_VALIDO','MAXITER deve essere un intero positivo');
-else
+end
 
 % Segnalo se NMAX è piccolo
 if (nummax < 10)
@@ -198,8 +198,6 @@ if (nummax > 10000)
     warndlg('Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta','Attenzione');
     uiwait(gcf);
     warning('Warn:MAXITER_GRANDE','Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta');
-end
-end
 end
 A = gallery('poisson',dimensioneA);
 b = sprand(length(A),1,0.2);
@@ -216,19 +214,10 @@ function checkAccuracy_Callback(hObject, eventdata, handles)
 % hObject    handle to checkAccuracy (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-dimensioneA = get(handles.dimA,'String');
-dimensioneB = get(handles.dimB,'String');
-toll = get(handles.tol,'String');
-nummax = get(handles.nmax,'String');
-if(isempty(dimensioneA))
-    errordlg('Inserire una dimensione per la matrice');
-    error('Inserire una dimensione per la matrice');
-elseif(isempty(dimensioneB))
-    errordlg('Inserire una dimensione per il vettore');
-    error('Inserire una dimensione per il vettore');
-else
-    dimensioneA = str2double(dimensioneA);
-    dimensioneB = str2double(dimensioneB);
+dimensioneA = str2double(get(handles.dimA,'String'));
+dimensioneB = str2double(get(handles.dimB,'String'));
+toll = str2double(get(handles.tol,'String'));
+nummax = str2double(get(handles.nmax,'String'));
 if(~isnumeric(dimensioneA) || dimensioneA<=1 || isempty(dimensioneA))
      errordlg('Inserire un valore numerico che sia maggiore o uguale a 2','Errore');
      error('Inserire un valore numerico che sia maggiore o uguale a 2');
@@ -237,18 +226,21 @@ if(~isnumeric(dimensioneB) || dimensioneB~=dimensioneA || isempty(dimensioneB))
      errordlg('Inserire un valore numerico uguale alla dimensione di A','Errore'); 
      error('Inserire un valore numerico uguale alla dimensione di A');
 end
-end
 if(isempty(toll))
     warndlg('Il valore di Tolleranza non e'' stato specificato, uso quello di default 10^-6','Attenzione');
     uiwait(gcf);
     toll = 10^-6;
-else
-    toll = str2double(toll);
-if ((~isscalar(toll)) || (~isnumeric(toll)) || (isinf(toll)) || (isnan(toll)) || (toll >= 0))
-    errordlg('L''esponente del valore di Tolleranza deve essere negativo','Errore');
-    error('Err:TOL_NON_VALIDO','TOL deve essere un numero positivo');
-else
+end
+if(isempty(nummax))
+    warndlg('Il numero di iterazioni non e'' stato specificato, uso quello di default 500','Attenzione');
+    uiwait(gcf);
+    nummax = 500;
+end
 toll = 10.^(toll);
+if ((~isscalar(toll)) || (~isnumeric(toll)) || (isinf(toll)) || (isnan(toll)) || (toll <= 0))
+    errordlg('TOL deve essere un numero positivo','Errore');
+    error('Err:TOL_NON_VALIDO','TOL deve essere un numero positivo');
+end
 if (toll < eps)
     warndlg('Il valore di TOL specificato è troppo piccolo. Verrà usato il valore di default TOL = 10^-6','Attenzione');
     uiwait(gcf);
@@ -261,18 +253,10 @@ if (toll >= 1)
     uiwait(gcf);
     warning('Warn:TOL_GRANDE','Il valore di TOL specificato è troppo grande. Il risultato fornito potrebbe essere molto inaccurato. Si guardi la documentazione.');
 end
-end
-end
-if(isempty(nummax))
-    warndlg('Il numero di iterazioni non e'' stato specificato, uso quello di default 500','Attenzione');
-    uiwait(gcf);
-    nummax = 500;
-else
-    nummax = str2double(nummax);
 if ((~isscalar(nummax)) || (~isnumeric(nummax)) || (isinf(nummax)) || (isnan(nummax)) || (nummax <= 0) || (mod(nummax,1) > eps))
     errordlg('MAXITER deve essere un intero positivo','Errore');
     error('Err:MAXITER_NON_VALIDO','MAXITER deve essere un intero positivo');
-else
+end
 
 % Segnalo se NMAX è piccolo
 if (nummax < 10)
@@ -286,8 +270,6 @@ if (nummax > 10000)
     warndlg('Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta','Attenzione');
     uiwait(gcf);
     warning('Warn:MAXITER_GRANDE','Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta');
-end
-end
 end
 A = gallery('poisson',dimensioneA);
 x = ones(length(A),1);
