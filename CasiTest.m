@@ -36,7 +36,7 @@ classdef CasiTest < matlab.unittest.TestCase
         
         function TestCase3(testCase)
             %% CASO DI TEST 3
-            % - Matrice A : Non Sparsa con Zero sulla Diagonale
+            % - Matrice A : Sparsa con Zero sulla Diagonale
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido

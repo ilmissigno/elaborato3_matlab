@@ -270,7 +270,7 @@ function testCase_Callback(hObject, eventdata, handles)
 % hObject    handle to testCase (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%% APRI QUI DOCUMENTAZIONE CASI TEST
+open('Doc_Test_Jacobi.pdf');
 
 
 
@@ -328,4 +328,4 @@ function infoBtn_Callback(hObject, eventdata, handles)
 % hObject    handle to infoBtn (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%% APRI QUI DOCUMENTAZIONE FUNZIONE JACOBI
+open('Documentazione_Jacobi.pdf');
