@@ -22,7 +22,7 @@ function varargout = MainGUI(varargin)
 
 % Edit the above text to modify the response to help MainGUI
 
-% Last Modified by GUIDE v2.5 16-Apr-2019 09:00:00
+% Last Modified by GUIDE v2.5 15-Apr-2019 12:52:35
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -258,9 +258,9 @@ if (nummax > 10000)
     warning('Warn:MAXITER_GRANDE','Il numero di iterazioni specificato è molto alto, l''esecuzione potrebbe essere più lenta');
 end
 A = gallery('poisson',dimensioneA);
-x = ones(length(A),1);
+x = ones(dimensioneB,1);
 uscita_str = CalcoloAccuratezza(A,x,toll,nummax);
-set(handles.ris,'String',sprintf('Parametri di uscita \n Indice Condizionamento: %.12e \n Residuo Relativo: %.12e \n Numero Iterazioni: %d \n Errore Relativo: %.12e \n',uscita_str.indice_cond,uscita_str.resid_rel,uscita_str.numiter,uscita_str.errore_rel));
+set(handles.ris,'String',sprintf('Parametri di uscita \n Indice Condizionamento: % \n Residuo Relativo %.13e',i,niter,resrel));
 
 
 
@@ -270,7 +270,6 @@ function testCase_Callback(hObject, eventdata, handles)
 % hObject    handle to testCase (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-%% APRI QUI DOCUMENTAZIONE CASI TEST
 
 
 
@@ -321,11 +320,3 @@ function nmax_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
-
-% --- Executes on button press in infoBtn.
-function infoBtn_Callback(hObject, eventdata, handles)
-% hObject    handle to infoBtn (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-%% APRI QUI DOCUMENTAZIONE FUNZIONE JACOBI
