@@ -9,3 +9,4 @@ MAXITER = 900;
 result = runtests('CasiTest.m');
 table(result);
 %aaaaa
+%aaa2
