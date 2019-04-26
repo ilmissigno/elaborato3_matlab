@@ -160,14 +160,14 @@ end
 
 switch nargout
     case 1
-        disp('Specificato solo soluzione x come uscita');
+        %disp('Specificato solo soluzione x come uscita');
         x = x_sol;
     case 2
-        disp('Specificati x e numero iterazioni come uscita');
+        %disp('Specificati x e numero iterazioni come uscita');
         x = x_sol;
         niter = numiter;
     case 3
-        disp('Specificati tutti i parametri come uscita');
+        %disp('Specificati tutti i parametri come uscita');
         x = x_sol;
         niter = numiter;
         resrel = norm(b-A*x,Inf)/norm(b,Inf);

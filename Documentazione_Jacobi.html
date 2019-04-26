@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge,IE=9,chrome=1"><meta name="generator" content="MATLAB R2019a"><title>Metodi Iterativi per la Risoluzione di un Sistema Lineare : Jacobi</title><style type="text/css">.rtcContent { padding: 30px; } .S0 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 28.7999992370605px; min-height: 0px; white-space: pre-wrap; color: rgb(213, 80, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 24px; font-weight: normal; text-align: left;  }
+.S1 { margin: 2px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: normal; text-align: left;  }
+.S2 { margin: 20px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: bold; text-align: left;  }
+.S3 { margin: 10px 0px 20px; padding-left: 0px; font-family: Helvetica, Arial, sans-serif; font-size: 14px;  }
+.S4 { margin-left: 56px; line-height: 21px; min-height: 0px; text-align: left; white-space: pre-wrap;  }
+.S5 { margin: 3px 10px 5px 4px; padding: 0px; line-height: 20px; min-height: 0px; white-space: pre-wrap; color: rgb(60, 60, 60); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 20px; font-weight: bold; text-align: left;  }
+.CodeBlock { background-color: #F7F7F7; margin: 10px 0 10px 0;}
+.S6 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 1px solid rgb(233, 233, 233); border-bottom: 0px none rgb(0, 0, 0); border-radius: 4px 4px 0px 0px; padding: 6px 45px 0px 13px; line-height: 17.234001159668px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px;  }
+.S7 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 0px none rgb(0, 0, 0); border-radius: 0px; padding: 0px 45px 0px 13px; line-height: 17.234001159668px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px;  }
+.S8 { border-left: 1px solid rgb(233, 233, 233); border-right: 1px solid rgb(233, 233, 233); border-top: 0px none rgb(0, 0, 0); border-bottom: 1px solid rgb(233, 233, 233); border-radius: 0px; padding: 0px 45px 4px 13px; line-height: 17.234001159668px; min-height: 18px; white-space: nowrap; color: rgb(0, 0, 0); font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px;  }
+.S9 { color: rgb(64, 64, 64); padding: 10px 0px 6px 17px; background: rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box; font-family: Menlo, Monaco, Consolas, 'Courier New', monospace; font-size: 14px; overflow-x: hidden; line-height: 17.234001159668px;  }
+.embeddedOutputsErrorElement {min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsErrorElement.inlineElement {}
+.embeddedOutputsErrorElement.rightPaneElement {}
+.embeddedOutputsWarningElement{min-height: 18px; max-height: 250px; overflow: auto;}
+.embeddedOutputsWarningElement.inlineElement {}
+.embeddedOutputsWarningElement.rightPaneElement {}
+.diagnosticMessage-wrapper {font-family: Menlo, Monaco, Consolas, "Courier New", monospace; font-size: 12px;}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType {color: rgb(255,100,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-warningType a {color: rgb(255,100,0); text-decoration: underline;}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType {color: rgb(230,0,0);}
+.diagnosticMessage-wrapper.diagnosticMessage-errorType a {color: rgb(230,0,0); text-decoration: underline;}
+.diagnosticMessage-wrapper .diagnosticMessage-messagePart {white-space: pre-wrap;}
+.diagnosticMessage-wrapper .diagnosticMessage-stackPart {white-space: pre;}
+.embeddedOutputsTextElement,.embeddedOutputsVariableStringElement {white-space: pre; word-wrap: initial; min-height: 18px; max-height: 250px; overflow: auto;}
+.textElement,.rtcDataTipElement .textElement {padding-top: 3px;}
+.embeddedOutputsTextElement.inlineElement,.embeddedOutputsVariableStringElement.inlineElement {}
+.inlineElement .textElement {}
+.embeddedOutputsTextElement.rightPaneElement,.embeddedOutputsVariableStringElement.rightPaneElement {min-height: 16px;}
+.rightPaneElement .textElement {padding-top: 2px; padding-left: 9px;}
+.variableValue { width: 100% !important; }
+.embeddedOutputsMatrixElement,.eoOutputWrapper .matrixElement {min-height: 18px; box-sizing: border-box;}
+.embeddedOutputsMatrixElement .matrixElement,.eoOutputWrapper .matrixElement,.rtcDataTipElement .matrixElement {position: relative;}
+.matrixElement .variableValue,.rtcDataTipElement .matrixElement .variableValue {white-space: pre; display: inline-block; vertical-align: top; overflow: hidden;}
+.embeddedOutputsMatrixElement.inlineElement {}
+.embeddedOutputsMatrixElement.inlineElement .topHeaderWrapper {display: none;}
+.embeddedOutputsMatrixElement.inlineElement .veTable .body {padding-top: 0 !important; max-height: 100px;}
+.inlineElement .matrixElement {max-height: 300px;}
+.embeddedOutputsMatrixElement.rightPaneElement {}
+.rightPaneElement .matrixElement,.rtcDataTipElement .matrixElement {overflow: hidden; padding-left: 9px;}
+.rightPaneElement .matrixElement {margin-bottom: -1px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer,.eoOutputWrapper .matrixElement .valueContainer,.rtcDataTipElement .matrixElement .valueContainer {white-space: nowrap; margin-bottom: 3px;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis.hide,.embeddedOutputsMatrixElement .matrixElement .verticalEllipsis.hide,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis.hide,.eoOutputWrapper .matrixElement .verticalEllipsis.hide,.rtcDataTipElement .matrixElement .valueContainer .horizontalEllipsis.hide,.rtcDataTipElement .matrixElement .verticalEllipsis.hide {display: none;}
+.embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .verticalEllipsis, .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer.hideEllipses .horizontalEllipsis {display:none;}
+.embeddedOutputsMatrixElement .matrixElement .valueContainer .horizontalEllipsis,.eoOutputWrapper .matrixElement .valueContainer .horizontalEllipsis {margin-bottom: -3px;}
+.eoOutputWrapper .embeddedOutputsVariableMatrixElement .matrixElement .valueContainer {cursor: default !important;}
+.matrixElement .horizontalEllipsis,.rtcDataTipElement .matrixElement .horizontalEllipsis {display: inline-block; margin-top: 3px; width: 30px; height: 12px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB0AAAAJCAYAAADO1CeCAAAAJUlEQVR42mP4//8/A70xw0i29BUDFPxnAEtTW37wWDqakIa4pQDvOOG89lHX2gAAAABJRU5ErkJggg==");}
+.matrixElement .verticalEllipsis,.textElement .verticalEllipsis,.rtcDataTipElement .matrixElement .verticalEllipsis,.rtcDataTipElement .textElement .verticalEllipsis {margin-left: 35px; width: 12px; height: 30px; background-repeat: no-repeat; background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAZCAYAAAAIcL+IAAAALklEQVR42mP4//8/AzGYgWyFMECMwv8QddRS+P//KyimlmcGUOFoOI6GI/UVAgDnd8Dd4+NCwgAAAABJRU5ErkJggg==");}
+.S10 { margin: 10px 10px 9px 4px; padding: 0px; line-height: 21px; min-height: 0px; white-space: pre-wrap; color: rgb(0, 0, 0); font-family: Helvetica, Arial, sans-serif; font-style: normal; font-size: 14px; font-weight: normal; text-align: left;  }</style></head><body><div class = rtcContent><h1  class = 'S0'><span style=' font-weight: bold;'>Metodi Iterativi per la Risoluzione di un Sistema Lineare : Jacobi</span></h1><div  class = 'S1'><span style=' font-weight: bold; font-style: italic;'>Risoluzione di un Sistema di Equazioni Lineare Ax = b con A sparsa.</span></div><h2  class = 'S2'><span style=' font-weight: bold;'>Sintassi</span></h2><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>x = Jacobi(A,b)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>x = Jacobi(A,b,TOL)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>x = Jacobi(A,b,TOL,MAXITER)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter] = Jacobi(A,b)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter] = Jacobi(A,b,TOL)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter] = Jacobi(A,b,TOL,MAXITER)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter,resrel] = Jacobi(A,b)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter,resrel] = Jacobi(A,b,TOL)</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)</span></li></ul><h2  class = 'S5'><span>Descrizione</span></h2><ol  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold; font-style: italic;'>x = Jacobi(A,b)</span><span style=' font-weight: bold;'> </span><span>risolve il sistema di equazioni lineari </span><span style=' font-weight: bold;'>Ax = b</span><span>. A deve essere una matrice quadrata sparsa, b deve essere un vettore colonna avente lo stesso numero di righe di A. La soluzione è corretta a meno di un errore dovuto al malcondizionamento della matrice A.</span></li><li  class = 'S4'><span style=' font-weight: bold; font-style: italic;'>x = Jacobi(A,b,TOL)</span><span> usa </span><span style=' font-weight: bold;'>TOL</span><span> per determinare l'accuratezza della soluzione. Se non specificato </span><span style=' font-weight: bold;'>TOL = 10^-6</span></li><li  class = 'S4'><span style=' font-weight: bold; font-style: italic;'>x = Jacobi(A,b,TOL,MAXITER)</span><span> usa </span><span style=' font-weight: bold;'>TOL</span><span> per determinare l'accuratezza della soluzione e </span><span style=' font-weight: bold;'>MAXITER</span><span> per individuare il numero massimo di iterazioni che l'algoritmo puo' compiere. Se non specificati, </span><span style=' font-weight: bold;'>TOL = 10^-6 e MAXITER=500</span><span>.</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter] = Jacobi(A,b,TOL,MAXITER) </span><span>ritorna oltre alla soluzione il numero di iterazioni che sono state necessarie per determinarla.</span></li><li  class = 'S4'><span style=' font-weight: bold;'>[x,niter,resrel] = Jacobi(A,b,TOL,MAXITER) </span><span>viene restituito anche il residuo relativo.</span></li></ol><h2  class = 'S5'><span>Parametri di input</span></h2><div  class = 'S1'><span style=' font-weight: bold;'>A - Matrice dei coefficienti</span></div><div  class = 'S1'><span>Matrice dei coefficienti quadrata sparsa.</span></div><div  class = 'S1'><span style=' font-style: italic;'>Data Types: </span><span style=' font-family: monospace;'>single | double</span></div><div  class = 'S1'><span style=' font-weight: bold;'>b - Vettore dei termini noti</span></div><div  class = 'S1'><span>Vettore dei termini noti, specificato come un vettore colonna avente lo stesso numero di righe della matrice </span><span style=' font-family: monospace;'>A</span><span>. </span></div><div  class = 'S1'><span style=' font-style: italic;'>Data Types: </span><span style=' font-family: monospace;'>single | double</span></div><div  class = 'S1'><span style=' font-weight: bold;'>TOL - Tolleranza</span></div><div  class = 'S1'><span>Facoltativo, valore di accuratezza desiderato, specificato come uno scalare. Se omesso TOL=10^-6.</span></div><div  class = 'S1'><span style=' font-style: italic;'>Data Types</span><span>: </span><span style=' font-family: monospace;'>single | double</span></div><div  class = 'S1'><span style=' font-weight: bold;'>MAXITER - Numero massimo di iterazioni</span></div><div  class = 'S1'><span>Facoltativo, numero massimo di iterazioni che l'agoritmo deve eseguire, specificato come uno scalare. Se omesso MAXITER=500.</span></div><div  class = 'S1'><span style=' font-style: italic;'>Data Types: </span><span style=' font-family: monospace;'>single | double</span></div><h2  class = 'S5'><span>Parametri di output</span></h2><div  class = 'S1'><span style=' font-weight: bold;'>x - Soluzione del sistema</span></div><div  class = 'S1'><span>Soluzione del sistema, restituita come un vettore colonna.</span></div><div  class = 'S1'><span style=' font-weight: bold;'>NITER </span></div><div  class = 'S1'><span> Numero di iterazioni effettuate dall'algoritmo per determinare la soluzione</span></div><div  class = 'S1'><span style=' font-weight: bold;'>RESREL</span></div><div  class = 'S1'><span> Residuo relativo :</span><span mathmlencoding="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot; display=&quot;inline&quot;&gt;&lt;mrow&gt;&lt;mfrac&gt;&lt;mrow&gt;&lt;mo&gt;∥&lt;/mo&gt;&lt;mi mathvariant=&quot;italic&quot;&gt;b&lt;/mi&gt;&lt;mo&gt;-&lt;/mo&gt;&lt;mi mathvariant=&quot;normal&quot;&gt;Ax&lt;/mi&gt;&lt;mo&gt;∥&lt;/mo&gt;&lt;/mrow&gt;&lt;mrow&gt;&lt;mo&gt;∥&lt;/mo&gt;&lt;mi mathvariant=&quot;italic&quot;&gt;b&lt;/mi&gt;&lt;mo&gt;∥&lt;/mo&gt;&lt;/mrow&gt;&lt;/mfrac&gt;&lt;mtext&gt; &lt;/mtext&gt;&lt;/mrow&gt;&lt;/math&gt;" style="vertical-align:-15px"><img src="data:image/png;base64,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" width="75.5" height="35" /></span></div><div  class = 'S1'><span></span></div><h2  class = 'S5'><span>Esempi di Utilizzo</span></h2><div  class = 'S1'><span style=' font-weight: bold;'>Sistema Lineare con A Matrice Sparsa</span></div><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>Command Line Matlab</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>A=sparse([1 3 2 3 4 1], [1 2 2 3 4 3],[1 2 3 4 5 8],4,4);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>b=rand(length(A),1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre;"><span class="warning_squiggle_rte">x</span><span> = Jacobi(A,b)</span></span></div><div  class = 'S9'><div class="inlineElement eoOutputWrapper embeddedOutputsWarningElement" uid="C5BDE17B" data-testid="output_0" data-width="499" data-height="30" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="diagnosticMessage-wrapper diagnosticMessage-warningType"><div class="diagnosticMessage-messagePart">Warning: Attenzione: TOL e MAXITER non specificati, uso TOL=10^-6 e MAXITER=500 valori di default</div><div class="diagnosticMessage-stackPart"></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="7E723EB0" data-testid="output_1" data-width="499" data-height="18" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="textElement">Specificato solo soluzione x come uscita</div></div><div class="inlineElement eoOutputWrapper embeddedOutputsMatrixElement" uid="B274FD68" data-testid="output_2" data-width="499" style="width: 529px;"><div class="matrixElement veSpecifier"><div class="veVariableName variableNameElement" style="width: 499px;"><span>x = </span><span class="veVariableValueSummary"></span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:72.24609375,&quot;totalColumns&quot;:&quot;1&quot;,&quot;totalRows&quot;:&quot;4&quot;,&quot;charsPerColumn&quot;:10}"><div class="variableValue" style="width: 74.24609375px;">   -0.9183
+    0.0033
+    0.1402
+    0.1105
+</div><div class="horizontalEllipsis hide"></div><div class="verticalEllipsis hide"></div></div></div></div></div></div></div><div  class = 'S10'><span style=' font-weight: bold;'>Sistema Lineare con A Matrice Sparsa di Poisson</span></div><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>Command Line Matlab</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>A = gallery(</span><span style="color: rgb(255, 0, 255);">'poisson'</span><span>,3);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>b = rand(length(A),1);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre;"><span class="warning_squiggle_rte">x</span><span> = Jacobi(A,b)</span></span></div><div  class = 'S9'><div class="inlineElement eoOutputWrapper embeddedOutputsWarningElement" uid="27414D6D" data-testid="output_3" data-width="499" data-height="30" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="diagnosticMessage-wrapper diagnosticMessage-warningType"><div class="diagnosticMessage-messagePart">Warning: Attenzione: TOL e MAXITER non specificati, uso TOL=10^-6 e MAXITER=500 valori di default</div><div class="diagnosticMessage-stackPart"></div></div></div><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="E986FF1A" data-testid="output_4" data-width="499" data-height="18" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="textElement">Specificato solo soluzione x come uscita</div></div><div class="inlineElement eoOutputWrapper embeddedOutputsMatrixElement" uid="9EF97CC9" data-testid="output_5" data-width="499" style="width: 529px;"><div class="matrixElement veSpecifier"><div class="veVariableName variableNameElement" style="width: 499px;"><span>x = </span><span class="veVariableValueSummary"></span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:72.24609375,&quot;totalColumns&quot;:&quot;1&quot;,&quot;totalRows&quot;:&quot;9&quot;,&quot;charsPerColumn&quot;:10}"><div class="variableValue" style="width: 74.24609375px;">    0.4489
+    0.5183
+    0.4454
+    0.5037
+    0.5386
+    0.5376
+    0.4692
+    0.3886
+    0.2490
+</div><div class="horizontalEllipsis hide"></div><div class="verticalEllipsis hide"></div></div></div></div></div></div></div><div  class = 'S10'><span style=' font-weight: bold;'>Sistema Lineare con A Matrice Sparsa, avente </span><span style=' font-weight: bold; font-style: italic;'>TOL </span><span style=' font-weight: bold;'>e </span><span style=' font-weight: bold; font-style: italic;'>NMAX </span><span style=' font-weight: bold;'>come parametri di ingresso e </span><span style=' font-weight: bold; font-style: italic;'>niter e resrel come parametri di uscita</span></div><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>Command Line Matlab</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>A=sparse([1 0 -1 4; 0 2 0 0 ; 0 -1 -1 0 ; 0 0 0 4]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>b=rand(length(A),1);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>TOL = 10^-8;</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>MAXITER = 900;</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre;"><span>[</span><span class="warning_squiggle_rte warningHighlight">x</span><span>,</span><span class="warning_squiggle_rte warningHighlight">niter</span><span>,</span><span class="warning_squiggle_rte warningHighlight">resrel</span><span>] = Jacobi(A,b,TOL,MAXITER)</span></span></div><div  class = 'S9'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="5AC98EF3" data-testid="output_6" data-width="499" data-height="18" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="textElement">Specificati tutti i parametri come uscita</div></div><div class="inlineElement eoOutputWrapper embeddedOutputsMatrixElement" uid="75EDA838" data-testid="output_7" data-width="499" style="width: 529px;"><div class="matrixElement veSpecifier"><div class="veVariableName variableNameElement" style="width: 499px;"><span>x = </span><span class="veVariableValueSummary"></span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:72.24609375,&quot;totalColumns&quot;:&quot;1&quot;,&quot;totalRows&quot;:&quot;4&quot;,&quot;charsPerColumn&quot;:10}"><div class="variableValue" style="width: 74.24609375px;">   -0.2659
+    0.4701
+   -0.9884
+    0.0025
+</div><div class="horizontalEllipsis hide"></div><div class="verticalEllipsis hide"></div></div></div></div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; '>niter = 4</div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; '>resrel = 1.1809e-16</div></div></div></div><div  class = 'S10'><span style=' font-weight: bold; font-style: italic;'>Sistema lineare con A Matrice Sparsa avente TOL=eps e NMAX=700</span></div><ul  class = 'S3'><li  class = 'S4'><span style=' font-weight: bold;'>Command Line Matlab</span></li></ul><div class="CodeBlock"><div class="inlineWrapper"><div  class = 'S6'><span style="white-space: pre;"><span>A=sparse([1 0 -1 4; 0 2 0 0 ; 0 -1 -1 0 ; 0 0 0 4]);</span></span></div></div><div class="inlineWrapper"><div  class = 'S7'><span style="white-space: pre;"><span>b=rand(length(A),1);</span></span></div></div><div class="inlineWrapper outputs"><div  class = 'S8'><span style="white-space: pre;"><span>[x,niter,resrel] = Jacobi(A,b,eps,700)</span></span></div><div  class = 'S9'><div class="inlineElement eoOutputWrapper embeddedOutputsTextElement" uid="901A419C" data-testid="output_10" data-width="499" data-height="18" data-hashorizontaloverflow="false" style="width: 529px; max-height: 261px;"><div class="textElement">Specificati tutti i parametri come uscita</div></div><div class="inlineElement eoOutputWrapper embeddedOutputsMatrixElement" uid="2748B9C0" data-testid="output_11" data-width="499" style="width: 529px;"><div class="matrixElement veSpecifier"><div class="veVariableName variableNameElement" style="width: 499px;"><span>x = </span><span class="veVariableValueSummary"></span></div><div class="valueContainer" data-layout="{&quot;columnWidth&quot;:72.24609375,&quot;totalColumns&quot;:&quot;1&quot;,&quot;totalRows&quot;:&quot;4&quot;,&quot;charsPerColumn&quot;:10}"><div class="variableValue" style="width: 74.24609375px;">   -0.2286
+    0.1578
+   -0.4848
+    0.1139
+</div><div class="horizontalEllipsis hide"></div><div class="verticalEllipsis hide"></div></div></div></div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; '>niter = 4</div><div class='variableElement' style='font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, monospace; font-size: 12px; '>resrel = 1.5594e-16</div></div></div></div><h2  class = 'S5'><span>Esecuzione da Interfaccia Grafica</span></h2><div  class = 'S1'><span>Si può  inoltre eseguire la funzione Jacobi  attraverso l'interfaccia grafica appositamente implementata. Il comando per utilizzare l'interfaccia è run MainGui().</span></div><h2  class = 'S5'><span>Riferimenti</span></h2><div  class = 'S1'><a href = "https://www.docenti.unina.it/#!/professor/414c455353414e4452414427414c455353494f444c534c534e3534433630463833394e/login"><span>Docenti.unina.it D'alessio Alessandra</span></a></div><div  class = 'S1'><a href = "https://it.wikipedia.org/wiki/Metodo_di_Jacobi"><span>Wikipedia : Metodo di Jacobi</span></a></div><h2  class = 'S5'><span>Autori</span></h2><div  class = 'S1'><span style=' font-weight: bold; font-style: italic;'>Giuseppe Napolano M63000856 Raffaele Formisano M63000912 Giuseppe Romito M63000936</span></div></div>
+<br>
+<!-- 
+##### SOURCE BEGIN #####
+%% *Metodi Iterativi per la Risoluzione di un Sistema Lineare : Jacobi*
+% _*Risoluzione di un Sistema di Equazioni Lineare Ax = b con A sparsa.*_
+%% *Sintassi*
+%% 
+% * *x = Jacobi(A,b)*
+% * *x = Jacobi(A,b,TOL)*
+% * *x = Jacobi(A,b,TOL,MAXITER)*
+% * *[x,niter] = Jacobi(A,b)*
+% * *[x,niter] = Jacobi(A,b,TOL)*
+% * *[x,niter] = Jacobi(A,b,TOL,MAXITER)*
+% * *[x,niter,resrel] = Jacobi(A,b)*
+% * *[x,niter,resrel] = Jacobi(A,b,TOL)*
+% * *[x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)*
+%% Descrizione
+%% 
+% # _*x = Jacobi(A,b)_ *risolve il sistema di equazioni lineari *Ax = b*. A 
+% deve essere una matrice quadrata sparsa, b deve essere un vettore colonna avente 
+% lo stesso numero di righe di A. La soluzione è corretta a meno di un errore 
+% dovuto al malcondizionamento della matrice A.
+% # _*x = Jacobi(A,b,TOL)*_ usa *TOL* per determinare l'accuratezza della soluzione. 
+% Se non specificato *TOL = 10^-6*
+% # _*x = Jacobi(A,b,TOL,MAXITER)*_ usa *TOL* per determinare l'accuratezza 
+% della soluzione e *MAXITER* per individuare il numero massimo di iterazioni 
+% che l'algoritmo puo' compiere. Se non specificati, *TOL = 10^-6 e MAXITER=500*.
+% # *[x,niter] = Jacobi(A,b,TOL,MAXITER) *ritorna oltre alla soluzione il numero 
+% di iterazioni che sono state necessarie per determinarla.
+% # *[x,niter,resrel] = Jacobi(A,b,TOL,MAXITER) *viene restituito anche il residuo 
+% relativo.
+%% Parametri di input
+% *A - Matrice dei coefficienti*
+% 
+% Matrice dei coefficienti quadrata sparsa.
+% 
+% _Data Types: _|single | double|
+% 
+% *b - Vettore dei termini noti*
+% 
+% Vettore dei termini noti, specificato come un vettore colonna avente lo stesso 
+% numero di righe della matrice |A|. 
+% 
+% _Data Types: _|single | double|
+% 
+% *TOL - Tolleranza*
+% 
+% Facoltativo, valore di accuratezza desiderato, specificato come uno scalare. 
+% Se omesso TOL=10^-6.
+% 
+% _Data Types_: |single | double|
+% 
+% *MAXITER - Numero massimo di iterazioni*
+% 
+% Facoltativo, numero massimo di iterazioni che l'agoritmo deve eseguire, specificato 
+% come uno scalare. Se omesso MAXITER=500.
+% 
+% _Data Types: _|single | double|
+%% Parametri di output
+% *x - Soluzione del sistema*
+% 
+% Soluzione del sistema, restituita come un vettore colonna.
+% 
+% *NITER *
+% 
+% Numero di iterazioni effettuate dall'algoritmo per determinare la soluzione
+% 
+% *RESREL*
+% 
+% Residuo relativo :$\frac{\parallel b-\mathrm{Ax}\parallel }{\parallel b\parallel 
+% }\text{ }$
+% 
+% %% Esempi di Utilizzo
+% *Sistema Lineare con A Matrice Sparsa*
+%% 
+% * *Command Line Matlab*
+
+A=sparse([1 3 2 3 4 1], [1 2 2 3 4 3],[1 2 3 4 5 8],4,4);
+
+b=rand(length(A),1);
+
+x = Jacobi(A,b)
+%% 
+% *Sistema Lineare con A Matrice Sparsa di Poisson*
+%% 
+% * *Command Line Matlab*
+
+A = gallery('poisson',3);
+b = rand(length(A),1);
+x = Jacobi(A,b)
+%% 
+% *Sistema Lineare con A Matrice Sparsa, avente _TOL _e _NMAX _come parametri 
+% di ingresso e _niter e resrel come parametri di uscita*_
+%% 
+% * *Command Line Matlab*
+
+A=sparse([1 0 -1 4; 0 2 0 0 ; 0 -1 -1 0 ; 0 0 0 4]);
+
+b=rand(length(A),1);
+TOL = 10^-8;
+MAXITER = 900;
+[x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
+%% 
+% _*Sistema lineare con A Matrice Sparsa avente TOL=eps e NMAX=700*_
+%% 
+% * *Command Line Matlab*
+
+A=sparse([1 0 -1 4; 0 2 0 0 ; 0 -1 -1 0 ; 0 0 0 4]);
+b=rand(length(A),1);
+[x,niter,resrel] = Jacobi(A,b,eps,700)
+%% Esecuzione da Interfaccia Grafica
+% Si può  inoltre eseguire la funzione Jacobi  attraverso l'interfaccia grafica 
+% appositamente implementata. Il comando per utilizzare l'interfaccia è run MainGui().
+%% Riferimenti
+% <https://www.docenti.unina.it/#!/professor/414c455353414e4452414427414c455353494f444c534c534e3534433630463833394e/login 
+% Docenti.unina.it D'alessio Alessandra>
+% 
+% <https://it.wikipedia.org/wiki/Metodo_di_Jacobi Wikipedia : Metodo di Jacobi>
+%% Autori
+% _*Giuseppe Napolano M63000856 Raffaele Formisano M63000912 Giuseppe Romito 
+% M63000936*_
+##### SOURCE END #####
+--></body></html>
