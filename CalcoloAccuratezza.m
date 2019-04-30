@@ -4,7 +4,7 @@
 % l'indice di condizionamento della matrice A in ingresso, l'errore
 % relativo in norma del massimo e il residuo relativo.
 
-function uscita_str = CalcoloAccuratezza(A,x,TOL,MAXITER)
+function [indice_cond,errore_rel,numiter,resid_rel] = CalcoloAccuratezza(A,x,TOL,MAXITER)
 %% Controllo sui parametri di ingresso
 switch nargin
     case 1
@@ -26,15 +26,15 @@ b = A*x; % Ricavo b come prodotto righe per colonne tra A e x
 
 % Il comando "condest" permette di ricavare l'indice di condizionamento in
 % norma 1 della matrice considerata come parametro di ingresso.
-uscita_str.indice_cond = condest(A);
+indice_cond = condest(A);
 
 % L'errore relativo viene calcolato come norma del massimo rispetto alla
 % soluzione di partenza data e quella calcolata dall'algoritmo
-uscita_str.errore_rel = norm(x-x_sol,Inf)/norm(x_sol,Inf);
+errore_rel = norm(x-x_sol,Inf)/norm(x_sol,Inf);
 
 % Numero iterazioni e residuo relativo generati dall'algoritmo
-uscita_str.numiter = niter;
-uscita_str.resid_rel = resrel;
+numiter = niter;
+resid_rel = resrel;
 
 % Il comando "spy" produce un grafico di uscita della sparsita' della
 % matrice in ingresso

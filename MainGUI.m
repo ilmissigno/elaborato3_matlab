@@ -291,8 +291,8 @@ end
 end
 A = gallery('poisson',dimensioneA);
 x = ones(length(A),1);
-uscita_str = CalcoloAccuratezza(A,x,toll,nummax);
-set(handles.ris,'String',sprintf('Parametri di uscita \n Indice Condizionamento: %.12e \n Residuo Relativo: %.12e \n Numero Iterazioni: %d \n Errore Relativo: %.12e \n',uscita_str.indice_cond,uscita_str.resid_rel,uscita_str.numiter,uscita_str.errore_rel));
+[indice_cond,errore_rel,numiter,resid_rel] = CalcoloAccuratezza(A,x,toll,nummax);
+set(handles.ris,'String',sprintf('Parametri di uscita \n Indice Condizionamento: %.12e \n Residuo Relativo: %.12e \n Numero Iterazioni: %d \n Errore Relativo: %.12e \n',indice_cond,resid_rel,numiter,errore_rel));
 
 
 
