@@ -30,7 +30,7 @@ indice_cond = condest(A);
 
 % L'errore relativo viene calcolato come norma del massimo rispetto alla
 % soluzione di partenza data e quella calcolata dall'algoritmo
-errore_rel = norm(x-x_sol,Inf)/norm(x_sol,Inf);
+errore_rel = norm(x-x_sol)/norm(x_sol);
 
 % Numero iterazioni e residuo relativo generati dall'algoritmo
 numiter = niter;
