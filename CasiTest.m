@@ -49,50 +49,7 @@ classdef CasiTest < matlab.unittest.TestCase
             
         end
         
-        function TestCase4(testCase)
-            %% CASO DI TEST 4
-            % - Matrice A : Valida
-            % - Vettore B : Valido
-            % - TOL : Minore di eps
-            % - MAXITER : Valido
-            
-            % Codice
-            [A,~,b,~,MAXITER] = Richiama_Parametri();
-            TOL = 10^-20;
-            
-            testCase.verifyWarning(@()Jacobi(A,b,TOL,MAXITER),'Warn:TOL_PICCOLO');
-            
-        end
-        
-        function TestCase5(testCase)
-            %% CASO DI TEST 5
-            % - Matrice A : Valida
-            % - Vettore B : Valido
-            % - TOL : Minore di 0
-            % - MAXITER : Valido
-            
-            % Codice
-           [A,~,b,~,MAXITER] = Richiama_Parametri();
-           TOL = -3;
-            
-            testCase.verifyError(@()Jacobi(A,b,TOL,MAXITER),'Err:TOL_NON_VALIDO');
-            
-        end
-        
-        function TestCase6(testCase)
-            %% CASO DI TEST 6
-            % - Matrice A : Valida
-            % - Vettore B : Valido
-            % - TOL : Maggiore di 0
-            % - MAXITER : Valido
-            
-            % Codice
-           [A,~,b,~,MAXITER] = Richiama_Parametri();
-           TOL = 1;
-            
-            testCase.verifyWarning(@()Jacobi(A,b,TOL,MAXITER),'Warn:TOL_GRANDE');
-            
-        end
+       
         
         function TestCase7(testCase)
             %% CASO DI TEST 7
@@ -150,6 +107,52 @@ classdef CasiTest < matlab.unittest.TestCase
            [A,~,b,TOL,MAXITER] = Richiama_Parametri();
            b(1) = Inf;            
             testCase.verifyError(@()Jacobi(A,b,TOL,MAXITER),'Err:B_NON_VALIDO');
+            
+        end
+        
+        
+        function TestCase4(testCase)
+            %% CASO DI TEST 4
+            % - Matrice A : Valida
+            % - Vettore B : Valido
+            % - TOL : Minore di eps
+            % - MAXITER : Valido
+            
+            % Codice
+            [A,~,b,~,MAXITER] = Richiama_Parametri();
+            TOL = 10^-20;
+            
+            testCase.verifyWarning(@()Jacobi(A,b,TOL,MAXITER),'Warn:TOL_PICCOLO');
+            
+        end
+        
+        function TestCase5(testCase)
+            %% CASO DI TEST 5
+            % - Matrice A : Valida
+            % - Vettore B : Valido
+            % - TOL : Minore di 0
+            % - MAXITER : Valido
+            
+            % Codice
+           [A,~,b,~,MAXITER] = Richiama_Parametri();
+           TOL = -3;
+            
+            testCase.verifyError(@()Jacobi(A,b,TOL,MAXITER),'Err:TOL_NON_VALIDO');
+            
+        end
+        
+        function TestCase6(testCase)
+            %% CASO DI TEST 6
+            % - Matrice A : Valida
+            % - Vettore B : Valido
+            % - TOL : Maggiore di 0
+            % - MAXITER : Valido
+            
+            % Codice
+           [A,~,b,~,MAXITER] = Richiama_Parametri();
+           TOL = 1;
+            
+            testCase.verifyWarning(@()Jacobi(A,b,TOL,MAXITER),'Warn:TOL_GRANDE');
             
         end
         
