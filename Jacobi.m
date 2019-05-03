@@ -97,14 +97,14 @@ errore_ass = Inf; % Errore assoluto di riferimento
 %creare la matrice diagonale devo rieffettuare il comando sul vettore
 %diagonale
 
-D = diag(diag(A));
+D = diag(A);
 
 %%
 
 % Inversa sparsa della matrice D ottenuta andando a specificare nel comando
 % 'sparse' del Matlab, il comando inv per ottenere la matrice inversa.
 
-Dinv = sparse(inv(D));
+Dinv = sparse(1:n,1:n,1./D);
 
 %%
 % Matrice Bj di iterazione (necessariamente sparsa) utilizzata per ricavare
@@ -160,7 +160,7 @@ end
 % Il residuo relativo viene calcolato indipendentemente se l'utente specifica il
 % parametro di output oppure se l'algoritmo raggiunge il massimo numero
 % di iterazioni.
-residuo_rel = norm(b-A*x_sol,Inf)/norm(b,Inf);
+residuo_rel = norm(b-A*x_sol)/norm(b);
 if (MAXITER==iterazioni)
     warning('Warn:NITER_MAGG_MAXITER','Il numero di iterazioni effettuate non è sufficiente per raggiungere l''accuratezza desiderata. niter=%d, residuo_relativo=%s',iterazioni,residuo_rel);
 end
