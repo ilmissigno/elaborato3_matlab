@@ -29,9 +29,9 @@ function [x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
 % [x,niter,resrel] = Jacobi(A,b,TOL,MAXITER)
 %%
 %% Descrizione
-% x = Jacobi(A,b) risolve il sistema di equazioni lineari A*x = b. 
-% A deve essere una matrice quadrata sparsa, b deve essere un vettore colonna 
-% avente lo stesso numero di righe di A. La soluzione è corretta 
+% x = Jacobi(A,b) risolve il sistema di equazioni lineari A*x = b.
+% A deve essere una matrice quadrata sparsa, b deve essere un vettore colonna
+% avente lo stesso numero di righe di A. La soluzione è corretta
 % a meno di un errore dovuto al malcondizionamento della matrice A.
 % x = Jacobi(A,b,TOL) usa TOL per determinare l'accuratezza della
 % soluzione. Se non specificato TOL = 10^-6
@@ -74,58 +74,19 @@ end
 
 %% Inizializzazione Variabili
 
-
 iterazioni = 0; % Contatore numero iterazioni
 errore_ass = Inf; % Errore assoluto di riferimento
 
-% Il metodo iterativo di Jacobi richede che la matrice di ingresso sia una
-% matrice sparsa di grandi dimensioni. Inoltre nella formula di risoluzione
-% compaiono i seguenti termini:
-%% Formula : x^(k+1) = Bj * x^k + D^-1 * b
-% Il termine x e' la soluzione al passo k e k+1 successivo
-% D e' la matrice diagonale ottenuta da A (la formula effettua un
-% inversione di D)
-% Bj e' la matrice ottenuta andando a effettuare la differenza tra la
-% matrice identita' della stessa dimensione di A e il prodotto tra
-% l'inversa della matrice diagonale D per A.
-% Ovviamente le matrici, essendo dipendenti da A, devono essere sparse.
+%% Calcolo parametri necessari
 
-%% Ricavo i parametri necessari
-%%
-% Matrice diagonale di A (ottenuta con il comando diag(diag(A))
-%N.B : Il comando diag estrae la diagonale soltanto quindi un vettore, per
-%creare la matrice diagonale devo rieffettuare il comando sul vettore
-%diagonale
+D = diag(A); %Matrice diagonale
 
-D = diag(A);
+Dinv = sparse(1:n,1:n,1./D); %Inversa sparsa della matrice D
 
-%%
-
-% Inversa sparsa della matrice D ottenuta andando a specificare nel comando
-% 'sparse' del Matlab, il comando inv per ottenere la matrice inversa.
-
-Dinv = sparse(1:n,1:n,1./D);
-
-%%
-% Matrice Bj di iterazione (necessariamente sparsa) utilizzata per ricavare
-% la risoluzione ad ogni iterazione. Ottenuta andando a utilizzare il
-% comando 'speye' che ottiene una matrice identita' di dimensione n della
-% matrice A.
-%% Bj = I - D^-1 * A
-
-Bj = speye(n,n) - Dinv*A;
-
-%%
-% Il metodo di Jacobi essendo iterativo richiede che sia soddisfatto un
-% criterio di arresto per garantire la convergenza del metodo. Questo deve
-% essere effettuato andando a verificare il Teorema di Convergenza. Nel
-% senso che numericamente, se il valore di Tolleranza immessa e' tale che
-% la norma della differenza delle soluzioni ai passi k+1 e k e' minore o
-% uguale al valore di tolleranza per la norma della soluzione al passo k.
-% Quindi, effettuiamo un controllo di ammissibilita' per TOL andando a
-% specificare una soluzione vettore colonna iniziale del metodo, nulla.
+Bj = speye(n,n) - Dinv*A; %Matrice di iterazione Bj = I - D^-1 * A
 
 x0 = zeros(n,1);
+
 %% VERIFICA DEL TEOREMA DI CONVERGENZA DEL METODO ITERATIVO
 tolleranza = TOL*norm(x0,Inf);
 if (tolleranza < realmin)
@@ -133,21 +94,12 @@ if (tolleranza < realmin)
 end
 
 %% Criterio di Arresto di Convergenza e Iterazione
-% Appena viene verificato il Criterio di Arresto di Convergenza
-% (errore k-esimo assoluto [associato alla soluzione al passo k+1 e k] 
-% minore o uguale al valore di tolleranza k-esimo 
-% associato alla soluzione k), il ciclo viene arrestato. Tutto in accordo
-% con la condizione di emergenza che il numero di iterazioni contate non
-% superino o siano uguali al valore massimo di iterazioni immesso in
-% ingresso.
 
-% Assegno il valore di x0 a x per il calcolo iniziale.
-
-x_sol = x0;
+x_sol = x0; % Assegno il valore di x0 a x per il calcolo iniziale.
 
 while ((errore_ass > tolleranza) && (iterazioni < MAXITER))
     x_temp = x_sol;
-    x_sol = Bj*x_sol + Dinv*b; % Formula di Jacobi in forma scalare specificata prima. x^k+1=Bj*x^k+D^-1*b
+    x_sol = Bj*x_sol + Dinv*b; % Formula di Jacobi in forma matriciale. x^k+1=Bj*x^k+D^-1*b
     errore_ass = norm(x_sol-x_temp,Inf);
     %% VERIFICA DEL TEOREMA DI CONVERGENZA DEL METODO ITERATIVO PER OGNI SOLUZIONE
     tolleranza = TOL*norm(x_sol,Inf);
@@ -157,24 +109,22 @@ while ((errore_ass > tolleranza) && (iterazioni < MAXITER))
     iterazioni = iterazioni + 1;
 end
 
-% Il residuo relativo viene calcolato indipendentemente se l'utente specifica il
-% parametro di output oppure se l'algoritmo raggiunge il massimo numero
-% di iterazioni.
 residuo_rel = norm(b-A*x_sol)/norm(b);
+
 if (MAXITER==iterazioni)
     warning('Warn:NITER_MAGG_MAXITER','Il numero di iterazioni effettuate non è sufficiente per raggiungere l''accuratezza desiderata. niter=%d, residuo_relativo=%s',iterazioni,residuo_rel);
 end
 
 switch nargout
     case 1
-        %disp('Specificato solo soluzione x come uscita');
+        %Specificato solo soluzione x come uscita
         x = x_sol;
     case 2
-        %disp('Specificati x e numero iterazioni come uscita');
+        %Specificati x e numero iterazioni come uscita
         x = x_sol;
         niter = iterazioni;
     case 3
-        %disp('Specificati tutti i parametri come uscita');
+        %Specificati tutti i parametri come uscita
         x = x_sol;
         niter = iterazioni;
         resrel = residuo_rel;
@@ -184,14 +134,9 @@ end
 
 %% Check del Numero Massimo di Iterazioni
 % Controllo se il valore del numero massimo di iterazioni rispetta i
-% criteri di un valore numerico adeguato.
+% criteri di un valore numerico adeguato. MAXITER deve essere un intero positivo
 function controllo_MaxIter(MAXITER)
-% MAXITER deve essere un intero positivo
-% N.B : La funzione mod serve a valutare il valore del resto della
-% divisione del dividendo specificato in corrispondenza al divisore.
-% in questo caso se la divisione restituisce un numero grande allora vuol
-% dire che MAXITER e' molto piccolo. Viceversa indica che MAXITER e' un
-% valore grande.
+
 if ((~isscalar(MAXITER)) || (~isnumeric(MAXITER)))
     error('Err:MAXITER_NON_VALIDO','MAXITER deve essere un intero positivo');
 end
@@ -201,7 +146,7 @@ end
 if((MAXITER <= 0) || (mod(MAXITER,1) > eps))
     error('Err:MAXITER_NON_VALIDO','MAXITER deve essere un intero positivo');
 end
-   
+
 % Segnalo se NMAX è piccolo
 if (MAXITER < 10)
     warning('Warn:MAXITER_PICCOLO','Il numero di iterazioni specificato è molto piccolo, l''errore di calcolo potrebbe essere elevato');

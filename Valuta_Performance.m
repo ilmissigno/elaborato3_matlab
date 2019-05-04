@@ -41,7 +41,7 @@ title('Metodo di Jacobi VS Bicg');
 legend('Risultati Jacobi','Risultati Bicg','Location','northwest');
 set(gca,'Xdir','reverse'); %cambia la direzione dell'asse x
 xlabel('TOL') ;
-ylabel('Numero di iterazioni') 
+ylabel('Numero di iterazioni')
 
 % Creazione grafico Indice Condizionamento,Errore Relativo e Residuo Relativo
 

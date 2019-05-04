@@ -9,28 +9,26 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Valido
             % - MAXITER : Valido
             % Eccezione Lanciata : Nessun parametro in ingresso
-            
-            % Codice
+     
             testCase.verifyError(@()Jacobi(),'Err:NESSUN_PARAM');
             
         end
         
-         function TestCase2(testCase)
+        function TestCase2(testCase)
             %% CASO DI TEST 2
             % - Matrice A : Valida
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido
             % Eccezione Lanciata : Numero Parametri in Ingresso minore di 2
-            
-            % Codice
+   
             [A,~,~,~,~] = Richiama_Parametri();
             
             testCase.verifyError(@()Jacobi(A),'Err:NARGIN_1');
             
-         end
+        end
         
-          function TestCase3(testCase)
+        function TestCase3(testCase)
             %% CASO DI TEST 3
             % - Matrice A : Valida
             % - Vettore B : Valido
@@ -38,27 +36,25 @@ classdef CasiTest < matlab.unittest.TestCase
             % - MAXITER : Valido
             % Eccezione Lanciata : TOL e MAXITER non specificati
             
-            % Codice
             [A,~,b,~,~] = Richiama_Parametri();
             
             testCase.verifyWarning(@()Jacobi(A,b),'Warn:TOL_MAXITER_NON_SPEC');
             
-          end
+        end
         
-         function TestCase4(testCase)
+        function TestCase4(testCase)
             %% CASO DI TEST 4
             % - Matrice A : Valida
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido
             % Eccezione Lanciata : MAXITER non specificato
-            
-            % Codice
+ 
             [A,~,b,TOL,~] = Richiama_Parametri();
             
             testCase.verifyWarning(@()Jacobi(A,b,TOL),'Warn:MAXITER_NON_SPEC');
             
-         end
+        end
         
         function TestCase5(testCase)
             %% CASO DI TEST 5
@@ -66,8 +62,7 @@ classdef CasiTest < matlab.unittest.TestCase
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido
-            
-            % Codice
+           
             [~,~,b,TOL,MAXITER] = Richiama_Parametri();
             A = rand(10);
             
@@ -81,8 +76,7 @@ classdef CasiTest < matlab.unittest.TestCase
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido
-            
-            % Codice
+          
             [~,~,~,TOL,MAXITER] = Richiama_Parametri();
             A = sprand(10,15,0.1);
             x = ones(15,1);
@@ -98,8 +92,7 @@ classdef CasiTest < matlab.unittest.TestCase
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Valido
-            
-            % Codice
+          
             [A,~,b,TOL,MAXITER] = Richiama_Parametri();
             A(1,1) = 0;
             
@@ -114,7 +107,6 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Valido
             % - MAXITER : Valido
             
-            % Codice
             [A,~,~,TOL,MAXITER] = Richiama_Parametri();
             b = rand(10);
             testCase.verifyError(@()Jacobi(A,b,TOL,MAXITER),'Err:B_NON_VETTORE');
@@ -128,7 +120,6 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Valido
             % - MAXITER : Valido
             
-            % Codice
             [A,~,b,TOL,MAXITER] = Richiama_Parametri();
             b(1) = Inf;
             testCase.verifyError(@()Jacobi(A,b,TOL,MAXITER),'Err:B_NON_VALIDO');
@@ -144,7 +135,6 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Minore di eps
             % - MAXITER : Valido
             
-            % Codice
             [A,~,b,~,MAXITER] = Richiama_Parametri();
             TOL = 10^-20;
             
@@ -159,7 +149,6 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Minore di 0
             % - MAXITER : Valido
             
-            % Codice
             [A,~,b,~,MAXITER] = Richiama_Parametri();
             TOL = -3;
             
@@ -173,8 +162,7 @@ classdef CasiTest < matlab.unittest.TestCase
             % - Vettore B : Valido
             % - TOL : Maggiore di 0
             % - MAXITER : Valido
-            
-            % Codice
+           
             [A,~,b,~,MAXITER] = Richiama_Parametri();
             TOL = 1;
             
@@ -191,7 +179,6 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Valido
             % - MAXITER : Negativo
             
-            % Codice
             [A,~,b,TOL,~] = Richiama_Parametri();
             MAXITER = -1;
             
@@ -205,14 +192,13 @@ classdef CasiTest < matlab.unittest.TestCase
             % - Vettore B : Valido
             % - TOL : Valido
             % - MAXITER : Molto Grande
-            
-            % Codice
+       
             [A,~,b,TOL,~] = Richiama_Parametri();
             MAXITER = 10500;
             
             testCase.verifyWarning(@()Jacobi(A,b,TOL,MAXITER),'Warn:MAXITER_GRANDE');
             
-        end   
+        end
         
         function TestCase15(testCase)
             %% CASO DI TEST 15
@@ -221,8 +207,7 @@ classdef CasiTest < matlab.unittest.TestCase
             % - TOL : Valido
             % - MAXITER : Valido
             % - Eccezione Lanciata: Il Numero di iterazioni e' pari a MAXITER
-            
-            % Codice
+           
             [A,~,b,TOL,~] = Richiama_Parametri();
             MAXITER = 3;
             
